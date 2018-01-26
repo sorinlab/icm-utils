@@ -15,37 +15,57 @@ $directory = $ENV{'PWD'};
 $icm_home = "/home/server/icm-3.7-2b/";
 
 # Get flags #
-if((@ARGV)) {
-  if($#ARGV<1){
+if((@ARGV))
+{
+  if($#ARGV<1)
+  {
    print "\nInvalid Usage, Please try again\n";
    $help = 1;
   }
-  else {  
-   for ($i=0; $i<=$#ARGV; $i++) {
+  else 
+  {  
+   for ($i=0; $i<=$#ARGV; $i++) 
+   {
      $flag = $ARGV[$i];
      chomp $flag;
-     if($flag eq "-d"){ $i++; $directory=$ARGV[$i]; next; }
-     if($flag eq "-h"){ $help = 1; }
+     if($flag eq "-d")
+     {
+       $i++; 
+       $directory=$ARGV[$i]; 
+       next; 
+     }
+     if($flag eq "-h")
+     {
+       $help = 1;
+     }
    }
  }
-}else{
-  print "$input\n"; exit();
+}
+else
+{
+  print "$input\n"; 
+  exit();
 }
 
-if($help==1){
+if($help==1)
+{
   print "$fileinfo";
   print "$info";
-  print "$input\n"; exit();
+  print "$input\n"; 
+  exit();
 }
 
 # Validing user's directory #
-if(-e $directory){
+if(-e $directory)
+{
  chomp $directory;
- if((substr $directory, -1) ne "/"){
-  $directory = $directory."/";
+ if((substr $directory, -1) ne "/")
+ {
+   $directory = $directory."/";
  }
 }
-else{
+else
+{
  print "\nThe directory:$directory does not exist!!!\n\n";
  exit;
 }
@@ -94,15 +114,18 @@ print ICM "l_commands=yes \n";
 # End of Hacked Print section #
 
 $newNameCount = 0;
-for($i=0; $i<=$#files; $i++){
-chomp $files[$i];
- if($files[$i] eq "." || $files[$i] eq ".."){
-  next;
- }
- else{
-  $newNameCount++;
-  print ICM "openFile '$directory$files[$i]'\n";
-  print ICM "rename a_bche1. Name(Name(\"bche$newNameCount\" simple),object)\n";
+for($i=0; $i<=$#files; $i++)
+{
+  chomp $files[$i];
+  if($files[$i] eq "." || $files[$i] eq "..")
+  {
+    next;
+  }
+ else
+ {
+    $newNameCount++;
+    print ICM "openFile '$directory$files[$i]'\n";
+    print ICM "rename a_bche1. Name(Name(\"bche$newNameCount\" simple),object)\n";
  }
 
 }
