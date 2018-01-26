@@ -12,7 +12,6 @@ $input = "\nUsage\:  ICM_Load.pl  [options]\n
 ";
 # Set default values that can be overwritten #
 $directory = $ENV{'PWD'};
-$files_Number = 0;
 $icm_home = "/home/server/icm-3.7-2b/";
 
 # Get flags #
