@@ -120,15 +120,15 @@ for($i=0; $i<=$#obFiles; $i++)
   
   $obFilesCount++;
   print ICM "openFile '$directory$obFiles[$i]'\n";
-  print ICM "write pdb a_bche1. '$directory$tempFile.ent'\n";
-  print ICM "delete a_bche1.\n";
+  print ICM "write pdb a_ '$directory$tempFile.ent'\n";
+  print ICM "delete a_\n";
 }
 close(ICM)||die $!;
 ########################################### End of ICM script ###########################################
 
 # Running the command to load in files
-system("$icm_home"."icm64 -g loadICM.icm"); 
-system("rm loadICM.icm");
+system("$icm_home"."icm64 -g pdbICM.icm"); 
+system("rm pdbICM.icm");
 system("rename 's/\.ent/\.pdb/' *.ent")
 # End running the command
 #########################################################################################################
