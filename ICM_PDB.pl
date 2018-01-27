@@ -1,6 +1,6 @@
 #!/usr/bin/env perl
 
-$fileinfo = "\nICM_PDB.pl last updated 01-25-18\n";
+$fileinfo = "\nICM_PDB.pl created on 01-25-18\n";
 
 # Define I/O && initialize #
 $info = "\nICM_PDB.pl opens all files within a given folder into ICM and produces PDB files. It will need the full directory path. \n\t(IE: ./ICM_PDB.pl -d /home/server/OBfiles_Folder/)";
@@ -75,7 +75,6 @@ closedir(DIR);
 
 # This section is used to set up the working directory for loadICM.icm to be made #
 chdir $directory;
-chdir "..";
 
 ########################################### Create ICM script ###########################################
 open(ICM,'>',"pdbICM.icm") || die "Please give me output filename $!"; #adjust the ICMscript 
@@ -128,7 +127,6 @@ close(ICM)||die $!;
 
 # Running the command to load in files
 system("$icm_home"."icm64 -g pdbICM.icm"); 
-system("rm pdbICM.icm");
-system("rename 's/\.ent/\.pdb/' *.ent")
+system("rm pdbICM.icm && rename 's/\.ent/\.pdb/' *.ent");
 # End running the command
 #########################################################################################################
