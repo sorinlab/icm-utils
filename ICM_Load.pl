@@ -17,10 +17,17 @@ $icm_home = "/home/server/icm-3.7-2b/";
 # Get flags #
 if((@ARGV))
 {
-  if($#ARGV<1)
+  if($#ARGV<3)
   {
-   print "\nInvalid Usage, Please try again\n";
-   $help = 1;
+    $help = 1;
+    if($#ARGV=2)
+    {
+      print "\nInvalid Usage, please give the name of the project to rename to."
+    }
+    else
+    {
+      print "\nInvalid Usage, Please use flag -d to specify the full ICM .ob files\n";
+    }
   }
   else 
   {  
@@ -33,6 +40,10 @@ if((@ARGV))
        $i++; 
        $directory=$ARGV[$i]; 
        next; 
+     }
+     if($i == 2)
+     {
+       $rename = $ARGV[$i];
      }
      if($flag eq "-h")
      {
@@ -77,7 +88,6 @@ closedir(DIR);
 
 # This section is used to set up the working directory for loadICM.icm to be made #
 chdir $directory;
-chdir "..";
 
 # Create ICM script #
 open(ICM,'>',"loadICM.icm") || die "Please give me output filename $!"; #adjust the ICMscript 
@@ -125,7 +135,7 @@ for($i=0; $i<=$#files; $i++)
  {
     $newNameCount++;
     print ICM "openFile '$directory$files[$i]'\n";
-    print ICM "rename a_bche1. Name(Name(\"bche$newNameCount\" simple),object)\n";
+    print ICM "rename a_ Name(Name(\"bche$newNameCount\" simple),object)\n";
  }
 
 }
