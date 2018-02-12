@@ -8,7 +8,7 @@ $input = "\nUsage\:  ICM_PDB.pl  [options]\n\t-d   \t\tFull Path to the files";
 
 # Set default values that can be overwritten #
 $directory = $ENV{'PWD'};
-$icm_home = "/home/server/icm-3.7-2b/";
+$icm_home = "/home/server/icm-3.7-2b";
 $icmInhibit = "BChE.icb";
 
 # Get flags #
@@ -61,7 +61,7 @@ else
 chdir $directory;
 
 # Checking if Server's project file exist
-if(-e $icm_home$icmInhibit)
+if(-e $icm_home'/'$icmInhibit)
 {
   system("cp $icm_home$icmInhibit $directory && mv $icmInhibit BChEInhibit.icb")
   $icm_home = "~/icm-3.7-2b/";
