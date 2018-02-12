@@ -68,7 +68,7 @@ if(-e $icmInhibit)
   system("cp /home/server/icm-3.7-2b/BChE.icb $directory && mv $icmInhibit BChEInhibit.icb");
   if (-e $icmInhibit)
   {
-    print "success"
+    print "success";
     $icm_home = "~/icm-3.7-2b/";
   }
   else
