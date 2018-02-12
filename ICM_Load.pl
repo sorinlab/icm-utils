@@ -16,17 +16,34 @@ $rname = "New-Name";
 # Get flags #
 if((@ARGV))
 {
-  if($#ARGV<1)
+  if($#ARGV<3)
   {
-   print "\nInvalid Usage, Please try again\n";
-   $help = 1;
+    $help = 1;
+    if($#ARGV=2)
+    {
+      print "\nInvalid Usage, please give the name of the project to rename to."
+    }
+    else
+    {
+      print "\nInvalid Usage, Please use flag -d to specify the full ICM .ob files\n";
+    }
   }
   else 
   {  
    for ($i=0; $i<=$#ARGV; $i++) 
    {
      $flag = $ARGV[$i];
-     chomp $flag; 
+     chomp $flag;
+     if($flag eq "-d")
+     {
+       $i++; 
+       $directory=$ARGV[$i]; 
+       next; 
+     }
+     if($i == 2)
+     {
+       $rename = $ARGV[$i];
+     }
      if($flag eq "-h")
      {
        $help = 1;
@@ -88,7 +105,6 @@ closedir(DIR);
 
 # This section is used to set up the working directory for loadICM.icm to be made #
 chdir $directory;
-chdir "..";
 
 # Create ICM script #
 open(ICM,'>',"loadICM.icm") || die "Please give me output filename $!"; #adjust the ICMscript 
