@@ -1,18 +1,17 @@
 #!/usr/bin/env perl
 #use Cwd qw(abs_path);
 
-$fileinfo = "\nICM_Load.pl last updated 08-11-17\n";
-
 # Define I/O && initialize #
-$info = "\nICM_Load.pl opens all files within a given folder into ICM. It will need the full directory path. \n\t(IE: ./ICM_Load.pl -d /home/server/ICM_FOLDER/)";
+$info = "\nICM_Load.pl opens and rename all files within a given folder into ICM. It will need the full directory path. \n\t(IE: ./ICM_Load.pl /home/server/ICM_FOLDER/ [new_name])";
 
-$input = "\nUsage\:  ICM_Load.pl  [options]\n
+$input = "\nUsage\:  ICM_Load.pl [ICM-Folder] [new-name]\n (take away the [] when using this)
 
-\t-d   \t\tFull Path to the files
+\t[ICM-Folder]\t\tFull Path to the .ob files\n\t[new-name]\t\tNew names due to ICM rename request
 ";
 # Set default values that can be overwritten #
 $directory = $ENV{'PWD'};
 $icm_home = "/home/server/icm-3.7-2b/";
+$rname = "New-Name";
 
 # Get flags #
 if((@ARGV))
@@ -27,16 +26,28 @@ if((@ARGV))
    for ($i=0; $i<=$#ARGV; $i++) 
    {
      $flag = $ARGV[$i];
-     chomp $flag;
-     if($flag eq "-d")
-     {
-       $i++; 
-       $directory=$ARGV[$i]; 
-       next; 
-     }
+     chomp $flag; 
      if($flag eq "-h")
      {
        $help = 1;
+     }
+     else
+     {
+       switch ($i)
+       {
+         case 0
+         {
+           $directory=$ARGV[$i];
+         }
+         case 1
+         {
+           $rname = $ARGV[$i]
+         }
+         else
+         {
+           $help = 1;
+         }
+       }       
      }
    }
  }
@@ -47,9 +58,9 @@ else
   exit();
 }
 
+# If user type the -h flag or put to many arguements, activate this help menu
 if($help==1)
 {
-  print "$fileinfo";
   print "$info";
   print "$input\n"; 
   exit();
@@ -125,15 +136,15 @@ for($i=0; $i<=$#files; $i++)
  {
     $newNameCount++;
     print ICM "openFile '$directory$files[$i]'\n";
-    print ICM "rename a_bche1. Name(Name(\"bche$newNameCount\" simple),object)\n";
+    print ICM "rename a_ Name(Name(\"$rname$newNameCount\" simple),object)\n";
  }
 
 }
+print ICM "quit\n";
 close(ICM)||die $!;
 # Ending creating ICM script #
 
 # Running the command to load in files
-system("$icm_home"."icm64 -g loadICM.icm"); 
-system("rm loadICM.icm");
+system("$icm_home"."icm64 -g loadICM.icm && rm loadICM.icm"); 
 # End running the command
 ###################################################################################################################################################################################
