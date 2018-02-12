@@ -64,7 +64,7 @@ if(-e $icmInhibit)
 {
   # This section is used to set up the working directory for loadICM.icm to be made #
   chdir $directory;
-  system("cp $icm_home$icmInhibit $directory && mv $icmInhibit BChEInhibit.icb")
+  system("cp $icm_home$icmInhibit $directory && mv $icmInhibit BChEInhibit.icb");
   $icm_home = "~/icm-3.7-2b/";
   $icmInhibit = "BChEInhibit.icb";
 }
