@@ -25,7 +25,7 @@ if((@ARGV))
     }
     else
     {
-      print "\nInvalid Usage, Please use flag -d to specify the full ICM .ob files\n";
+      print "\nInvalid Usage, Please follow all usage rules.\n";
     }
   }
   else 
@@ -34,19 +34,10 @@ if((@ARGV))
    {
      $flag = $ARGV[$i];
      chomp $flag;
-     if($flag eq "-d")
-     {
-       $i++; 
-       $directory=$ARGV[$i]; 
-       next; 
-     }
-     if($i == 2)
-     {
-       $rename = $ARGV[$i];
-     }
      if($flag eq "-h")
      {
        $help = 1;
+       last;
      }
      else
      {
@@ -63,6 +54,7 @@ if((@ARGV))
          else
          {
            $help = 1;
+           last;
          }
        }       
      }
