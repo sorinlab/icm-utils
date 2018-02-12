@@ -8,7 +8,8 @@ $input = "\nUsage\:  ICM_PDB.pl  [options]\n\t-d   \t\tFull Path to the files";
 
 # Set default values that can be overwritten #
 $directory = $ENV{'PWD'};
-$icm_home = "~/icm-3.7-2b/";
+$icm_home = "/home/server/icm-3.7-2b/";
+$icmInhibit = "BChE.icb";
 
 # Get flags #
 if((@ARGV)) 
@@ -56,6 +57,22 @@ else
  exit;
 }
 
+# This section is used to set up the working directory for loadICM.icm to be made #
+chdir $directory;
+
+# Checking if Server's project file exist
+if(-e $icm_home$icmInhibit)
+{
+  system("cp $icm_home$icmInhibit $directory && mv $icmInhibit BChEInhibit.icb")
+  $icm_home = "~/icm-3.7-2b/";
+  $icmInhibit = "BChEInhibit.icb";
+}
+else
+{
+  print "\nThe file: $icmInhibit does not exist in $icm_home!!! Please contact your system Admin.\n\n";
+  exit;
+}
+
 # Reading the files in the directory and putting the files name into array DIR #
 opendir(DIR,$directory);
 #my @files = readdir(DIR);
@@ -72,9 +89,6 @@ while ( my $file = readdir(DIR) )
   $obFilesCount++;
 }
 closedir(DIR);
-
-# This section is used to set up the working directory for loadICM.icm to be made #
-chdir $directory;
 
 ########################################### Create ICM script ###########################################
 open(ICM,'>',"pdbICM.icm") || die "Please give me output filename $!"; #adjust the ICMscript 
@@ -110,6 +124,7 @@ print ICM "l_commands=yes \n";
 # End of Hacked Print section #
 
 $obFilesCount = 0;
+print ICM "openFile '$directory$icmInhibit'\n";
 for($i=0; $i<=$#obFiles; $i++)
 {
   chomp $obFiles[$i];
@@ -119,9 +134,11 @@ for($i=0; $i<=$#obFiles; $i++)
   
   $obFilesCount++;
   print ICM "openFile '$directory$obFiles[$i]'\n";
-  print ICM "write pdb a_ '$directory$tempFile.ent'\n";
-  print ICM "delete a_\n";
+  print ICM "move a_ a_1POI_HumanBChE_ICM.\n";
+  print ICM "write pdb a_1POI_HumanBChE_ICM. '$directory$tempFile.ent'\n";
+  print ICM "delete a_1POI_HumanBChE_ICM.m\n";
 }
+print ICM "quit\n";
 close(ICM)||die $!;
 ########################################### End of ICM script ###########################################
 
