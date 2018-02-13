@@ -148,7 +148,7 @@ for($i=0; $i<=$#obFiles; $i++)
   print ICM "write pdb a_1P0I_HumanBChE_ICM. '$directory$tempFile.ent'\n";
   print ICM "delete a_1P0I_HumanBChE_ICM.m\n";
 }
-#print ICM "quit\n";
+print ICM "quit\n";
 close(ICM)||die $!;
 ########################################### End of ICM script ###########################################
 
