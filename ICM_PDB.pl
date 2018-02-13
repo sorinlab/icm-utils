@@ -154,6 +154,6 @@ close(ICM)||die $!;
 
 # Running the command to load in files
 system("$icm_home"."icm64 -g pdbICM.icm"); 
-system("rm pdbICM.icm && rename 's/\.ent/\.pdb/' *.ent && rm "."$icmInhibit");
+system("rm pdbICM.icm && rename 's/\.ent/\.pdb/' *.ent && rm -f "."$icmInhibit");
 # End running the command
 #########################################################################################################
