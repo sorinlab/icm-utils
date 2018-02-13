@@ -143,7 +143,7 @@ for($i=0; $i<=$#obFiles; $i++)
   $tempFile = substr $obFiles[$i], 0, length($obFiles[$i])-3;
   
   $obFilesCount++;
-  print ICM "openFile '$directory$obFiles[$i]'\n";
+  print ICM "openFile '$directory$obFiles[$i]' 0 yes no no no ' append'\n";
   print ICM "move a_ a_1POI_HumanBChE_ICM.\n";
   print ICM "write pdb a_1POI_HumanBChE_ICM. '$directory$tempFile.ent'\n";
   print ICM "delete a_1POI_HumanBChE_ICM.m\n";
