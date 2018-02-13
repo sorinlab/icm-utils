@@ -144,9 +144,9 @@ for($i=0; $i<=$#obFiles; $i++)
   
   $obFilesCount++;
   print ICM "openFile '$directory$obFiles[$i]' 0 yes no no no ' append'\n";
-  print ICM "move a_ a_1POI_HumanBChE_ICM.\n";
-  print ICM "write pdb a_1POI_HumanBChE_ICM. '$directory$tempFile.ent'\n";
-  print ICM "delete a_1POI_HumanBChE_ICM.m\n";
+  print ICM "move a_ a_1P0I_HumanBChE_ICM.\n";
+  print ICM "write pdb a_1P0I_HumanBChE_ICM. '$directory$tempFile.ent'\n";
+  print ICM "delete a_1P0I_HumanBChE_ICM.m\n";
 }
 #print ICM "quit\n";
 close(ICM)||die $!;
