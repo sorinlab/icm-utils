@@ -134,7 +134,7 @@ print ICM "l_commands=yes \n";
 # End of Hacked Print section #
 
 $obFilesCount = 0;
-print ICM "openFile '$directory$icmInhibit'\n";
+print ICM "openFile '$directory$icmInhibit' 0 yes no no no ' append'\n";
 for($i=0; $i<=$#obFiles; $i++)
 {
   chomp $obFiles[$i];
