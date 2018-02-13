@@ -10,7 +10,7 @@ $input = "\nUsage\:  ICM_Load.pl [ICM-Folder] [new-name]\n (take away the [] whe
 ";
 # Set default values that can be overwritten #
 $directory = $ENV{'PWD'};
-$icm_home = "/home/server/icm-3.7-2b/";
+$icm_home = "~/icm-3.7-2b/";
 $rname = "New-Name";
 
 # Get flags #
