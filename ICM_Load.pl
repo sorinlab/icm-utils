@@ -4,9 +4,9 @@
 # Define I/O && initialize #
 $info = "\nICM_Load.pl opens and rename all files within a given folder into ICM. It will need the full directory path. \n\t(IE: ./ICM_Load.pl /home/server/ICM_FOLDER/ [new_name])";
 
-$input = "\nUsage\:  ICM_Load.pl [ICM-Folder] [new-name]\n (take away the [] when using this)
+$input = "\nUsage\:  ICM_Load.pl [Your/.ob/Files/Folder] [new-name]\n (take away the [] when using this)
 
-\t[ICM-Folder]\t\tFull Path to the .ob files\n\t[new-name]\t\tNew names due to ICM rename request
+\t[Your/.ob/Files/Folder]\t\tPath to the .ob files\n\t[new-name]\t\tNew names due to ICM rename request
 ";
 # Set default values that can be overwritten #
 $directory = $ENV{'PWD'};
@@ -78,11 +78,20 @@ if($help==1)
 # Validing user's directory #
 if(-e $directory)
 {
- chomp $directory;
- if((substr $directory, -1) ne "/")
- {
-   $directory = $directory."/";
- }
+  chomp $directory;
+  if((substr $directory, -1) ne "/")
+  {
+    $directory = $directory."/";
+  }
+}
+elsif (-e $ENV{'PWD'}.$directory)
+{
+  $directory = $ENV{'PWD'}."/".$directory;
+  chomp $directory;
+  if((substr $directory, -1) ne "/")
+  {
+    $directory = $directory."/";
+  }
 }
 else
 {

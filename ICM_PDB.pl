@@ -4,12 +4,12 @@ $fileinfo = "\nICM_PDB.pl created on 01-25-18\n";
 
 # Define I/O && initialize #
 $info = "\nICM_PDB.pl opens all files within a given folder into ICM and produces PDB files. It will need the full directory path. \n\t(IE: ./ICM_PDB.pl -d /home/server/OBfiles_Folder/)";
-$input = "\nUsage\:  ICM_PDB.pl  [options]\n\t-d   \t\tFull Path to the files";
+$input = "\nUsage\:  ICM_PDB.pl  Path/To/ObjectFiles\n\t* Path can be from current directory";
 
 # Set default values that can be overwritten #
 $directory = $ENV{'PWD'};
 $icm_home = "/home/server/icm-3.7-2b";
-$icmInhibit = "BChE.icb";
+$icmInhibit = "BcheTemplate.icb";
 
 # Get flags #
 if((@ARGV)) 
@@ -51,20 +51,29 @@ if(-e $directory)
     $directory = $directory."/";
   }
 }
+elsif (-e $ENV{'PWD'}.$directory)
+{
+  $directory = $ENV{'PWD'}."/".$directory;
+  chomp $directory;
+  if((substr $directory, -1) ne "/")
+  {
+    $directory = $directory."/";
+  }
+}
 else
 {
  print "\nThe directory:$directory does not exist!!!\n\n";
  exit;
 }
 
-chdir $icm_home;
+#chdir $icm_home;
 
 # Checking if Server's project file exist
-if(-e $icmInhibit)
+if(-e $icm_home.$icmInhibit)
 {
   # This section is used to set up the working directory for loadICM.icm to be made #
   chdir $directory;
-  system("cp /home/server/icm-3.7-2b/BChE.icb $directory"."BChEInhibit.icb");
+  system("cp $icm_home"."$icmInhibit $directory"."BChEInhibit.icb");
   $icmInhibit = "BChEInhibit.icb";
   if (-e $icmInhibit)
   {
