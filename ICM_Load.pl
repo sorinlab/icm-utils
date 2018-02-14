@@ -16,7 +16,7 @@ $rname = "New-Name";
 # Get flags #
 if((@ARGV))
 {
-  if($#ARGV<3)
+  if($#ARGV<2)
   {
     $help = 1;
     if($#ARGV=2)
@@ -41,23 +41,19 @@ if((@ARGV))
      }
      else
      {
-       use switch;
-       switch ($i)
+       if ($i == 0)
        {
-         case 0
-         {
-           $directory=$ARGV[$i]
-         }
-         case 1
-         {
-           $rname = $ARGV[$i]
-         }
-         else
-         {
-           $help = 1
-           last
-         }
-       }       
+         $directory = $ARGV[$i];
+       }
+       elsif ($i == 1)
+       {
+         $rname = $ARGV[$i];
+       }
+       else
+       {
+         $help = 1;
+         last;
+       }
      }
    }
  }
