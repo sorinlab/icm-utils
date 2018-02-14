@@ -142,17 +142,17 @@ print ICM "l_commands=yes \n";
 # End of Hacked Print section #
 
 $newNameCount = 0;
-for($i=0; $i<=$#files; $i++)
+for($i=0; $i<=$#obFiles; $i++)
 {
-  chomp $files[$i];
-  if($files[$i] eq "." || $files[$i] eq "..")
+  chomp $obFiles[$i];
+  if($obFiles[$i] eq "." || $obFiles[$i] eq "..")
   {
     next;
   }
  else
  {
     $newNameCount++;
-    print ICM "openFile '$directory$files[$i]'\n";
+    print ICM "openFile '$directory$obFiles[$i]'\n";
     print ICM "rename a_ Name(Name(\"$rname$newNameCount\" simple),object)\n";
  }
 }
