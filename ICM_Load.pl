@@ -49,7 +49,7 @@ if((@ARGV))
          }
          case 1
          {
-           $rname = $ARGV[$i]
+           $rname = $ARGV[$i];
          }
          else
          {
