@@ -90,7 +90,18 @@ else
 
 # Reading the files in the directory and putting the files name into array DIR #
 opendir(DIR,$directory);
-my @files = readdir(DIR);
+my @obFiles;
+$obFilesCount = 0;
+while ( my $file = readdir(DIR) )
+{
+  # Ignoring all the non files in the directory, IE: "." & ".."
+  next unless ( -f "$directory/$file" );
+
+  # Finding files with .ob extension
+  next unless ( $file =~ /\.ob$/ );
+  $obFiles[$obFilesCount] = $file;
+  $obFilesCount++;
+}
 closedir(DIR);
 
 # This section is used to set up the working directory for loadICM.icm to be made #
@@ -144,9 +155,7 @@ for($i=0; $i<=$#files; $i++)
     print ICM "openFile '$directory$files[$i]'\n";
     print ICM "rename a_ Name(Name(\"$rname$newNameCount\" simple),object)\n";
  }
-
 }
-print ICM "quit\n";
 close(ICM)||die $!;
 # Ending creating ICM script #
 
