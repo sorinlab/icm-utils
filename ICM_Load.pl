@@ -73,7 +73,7 @@ if($help==1)
 }
 
 # Validing user's directory #
-if (-e $ENV{'PWD'}.$directory)
+if (-e $ENV{'PWD'}."/".$directory)
 {
   $directory = $ENV{'PWD'}."/".$directory;
   chomp $directory;
