@@ -16,10 +16,10 @@ $rname = "New-Name";
 # Get flags #
 if((@ARGV))
 {
-  if($#ARGV<2)
+  if($#ARGV!=2)
   {
     $help = 1;
-    if($#ARGV=2)
+    if($#ARGV<2)
     {
       print "\nInvalid Usage, please give the name of the project to rename to."
     }
