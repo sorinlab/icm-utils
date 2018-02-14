@@ -41,20 +41,21 @@ if((@ARGV))
      }
      else
      {
+       use switch;
        switch ($i)
        {
          case 0
          {
-           $directory=$ARGV[$i];
+           $directory=$ARGV[$i]
          }
          case 1
          {
-           $rname = $ARGV[$i];
+           $rname = $ARGV[$i]
          }
          else
          {
-           $help = 1;
-           last;
+           $help = 1
+           last
          }
        }       
      }
