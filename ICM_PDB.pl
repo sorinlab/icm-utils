@@ -4,7 +4,7 @@ $fileinfo = "\nICM_PDB.pl created on 01-25-18\n";
 
 # Define I/O && initialize #
 $info = "\nICM_PDB.pl opens all files within a given folder into ICM and produces PDB files. It will need the full directory path. \n\t(IE: ./ICM_PDB.pl -d /home/server/OBfiles_Folder/)";
-$input = "\nUsage\:  ICM_PDB.pl  Path/To/ObjectFiles\n\t* Path can be from current directory";
+$input = "\nUsage\:  ICM_PDB.pl  Path/To/.ob/Files\n\t* Path must be from current directory";
 
 # Set default values that can be overwritten #
 $directory = $ENV{'PWD'};
@@ -14,21 +14,16 @@ $icmInhibit = "BcheTemplate.icb";
 # Get flags #
 if((@ARGV)) 
 {
-  if($#ARGV<1)
-  {
-   print "\nInvalid Usage, Please try again\n";
-   $help = 1;
+  $flag = $ARGV[0];
+  chomp $flag;
+  if($flag eq "-h")
+  { 
+    $help = 1;
   }
-  else 
-  {  
-   for ($i=0; $i<=$#ARGV; $i++) 
-   {
-     $flag = $ARGV[$i];
-     chomp $flag;
-     if($flag eq "-d"){ $i++; $directory=$ARGV[$i]; next; }
-     if($flag eq "-h"){ $help = 1; }
-   }
- }
+  else
+  {
+    $directory=$flag;
+  }
 }
 else
 {
@@ -43,15 +38,7 @@ if($help==1)
 }
 
 # Validing user's directory #
-if(-e $directory)
-{
-  chomp $directory;
-  if((substr $directory, -1) ne "/")
-  {
-    $directory = $directory."/";
-  }
-}
-elsif (-e $ENV{'PWD'}.$directory)
+if (-e $ENV{'PWD'}."/".$directory)
 {
   $directory = $ENV{'PWD'}."/".$directory;
   chomp $directory;
@@ -62,7 +49,7 @@ elsif (-e $ENV{'PWD'}.$directory)
 }
 else
 {
- print "\nThe directory:$directory does not exist!!!\n\n";
+ print "\nThe directory:$ENV{'PWD'}"."/"."$directory does not exist!!!\n\n";
  exit;
 }
 
@@ -94,7 +81,6 @@ else
 
 # Reading the files in the directory and putting the files name into array DIR #
 opendir(DIR,$directory);
-#my @files = readdir(DIR);
 my @obFiles;
 $obFilesCount = 0;
 while ( my $file = readdir(DIR) )
