@@ -8,7 +8,7 @@ $input = "\nUsage\:  ICM_PDB.pl  Path/To/.ob/Files\n\t* Path must be from curren
 
 # Set default values that can be overwritten #
 $directory = $ENV{'PWD'};
-$icm_home = "/home/server/icm-3.7-2b";
+$icm_home = "/home/server/icm-3.7-2b/";
 $icmInhibit = "BcheTemplate.icb";
 
 # Get flags #
